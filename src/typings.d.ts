@@ -1,1 +1,2 @@
-// Insert typings here
+/// <reference types="vite/client" />
+/// <reference types="vite-plugin-pwa/client" />
