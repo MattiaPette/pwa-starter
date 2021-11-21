@@ -8,7 +8,25 @@ import VitePluginMacros from 'vite-plugin-babel-macros';
 export default defineConfig(({ mode }) => ({
   base: '/',
   publicDir: 'public',
-  plugins: [reactRefresh(), VitePluginMacros(), VitePWA(), minifyHtml()],
+  plugins: [
+    reactRefresh(),
+    VitePluginMacros(),
+    VitePWA({
+      mode: mode === 'production' ? 'production' : 'development',
+      registerType: 'prompt',
+      srcDir: 'src',
+      filename: 'sw.ts',
+      base: '/',
+      strategies: 'injectManifest',
+      includeAssets: [
+        'favicon.svg',
+        'favicon.ico',
+        'robots.txt',
+        'apple-touch-icon.png',
+      ],
+    }),
+    minifyHtml(),
+  ],
   build: {
     sourcemap: true,
   },
